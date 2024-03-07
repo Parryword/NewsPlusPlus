@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -41,7 +42,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  String mainText = "Home";
 
   void _incrementCounter() {
     setState(() {
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      mainText = "Search results";
     });
   }
 
@@ -70,41 +71,57 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: const Row(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "NewsPP",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold
-                )
+        title: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "NewsPP",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
+                  )
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 200,
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 200,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            )
-          ],
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                child: FloatingActionButton.extended(
+                    onPressed: _incrementCounter,
+                    label: const Text(
+                        "Search",
+                        style: TextStyle(fontSize: 24),
+                    )),
+              )
+            ],
+          ),
         )
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              'News',
+            Text(
+              '$mainText',
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold
+              ),
             ),
             Container(
 
