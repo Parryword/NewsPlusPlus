@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -51,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
+      const response = fetchNews();
       mainText = "Search results";
     });
   }
@@ -75,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Padding(
+              /*const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   "NewsPP",
@@ -84,9 +85,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontWeight: FontWeight.bold
                   )
                 ),
-              ),
+              ),*/
               const Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(5.0),
                 child: SizedBox(
                   width: 200,
                   child: TextField(
@@ -98,12 +99,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(5.0),
                 child: FloatingActionButton.extended(
                     onPressed: _incrementCounter,
                     label: const Text(
                         "Search",
-                        style: TextStyle(fontSize: 24),
+                        style: TextStyle(fontSize: 20),
                     )),
               )
             ],
@@ -134,5 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  fetchNews() {
+
   }
 }
