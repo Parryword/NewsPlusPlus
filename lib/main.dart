@@ -49,19 +49,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _search() async {
     final response = await get(Uri.parse("https://newsapi.org/v2/everything?q=Turkey&apiKey=1d03b991a18c4c62801c03ea541ac065"));
     if (response.statusCode == 200) {
-      // debugPrint(jsonEncode(jsonDecode(response.body)["articles"]));
       List<dynamic> json = jsonDecode(response.body)["articles"];
 
       mainText = "";
       for (int i = 0; i < 5; i++) {
-        // debugPrint(j.toString());
-        // mainText += News.fromJson(jsonDecode(j) as Map<String, dynamic>).toString();
         mainText += News.fromJson(json[i]).toString();
       }
-      // mainText = News.fromJson(jsonDecode(str) as Map<String, dynamic>).toString();
     }
-    // mainText = "Search results";
-
     setState(() {
     });
   }
@@ -179,7 +173,6 @@ class News {
 
     @override
   String toString() {
-    // TODO: implement toString
       final buffer = StringBuffer();
       buffer.write("$title\n");
       buffer.write("$description\n");
