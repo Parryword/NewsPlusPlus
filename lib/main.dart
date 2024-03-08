@@ -45,9 +45,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String mainText = "Home";
+  String searchText = "Turkey";
 
   Future<void> _search() async {
-    final response = await get(Uri.parse("https://newsapi.org/v2/everything?q=Turkey&apiKey=1d03b991a18c4c62801c03ea541ac065"));
+    final response = await get(Uri.parse("https://newsapi.org/v2/everything?q=$searchText&apiKey=1d03b991a18c4c62801c03ea541ac065"));
     if (response.statusCode == 200) {
       List<dynamic> json = jsonDecode(response.body)["articles"];
 
@@ -90,15 +91,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ),
               ),*/
-              const Padding(
-                padding: EdgeInsets.all(5.0),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
                 child: SizedBox(
                   width: 200,
                   child: TextField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
                     ),
+                    onChanged: (value) {
+                      searchText = value;
+                    },
                   ),
                 ),
               ),
