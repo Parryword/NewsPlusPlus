@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,15 +44,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String mainText = "Home";
 
-  void _incrementCounter() {
+  Future<void> _search() async {
+    final response = await get(Uri.parse("https://newsapi.org/v2/everything?q=Turkey&apiKey=1d03b991a18c4c62801c03ea541ac065"));
+    if (response.statusCode == 200) {
+      debugPrint(response.body);
+    }
+    mainText = "Search results";
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      const response = fetchNews();
-      mainText = "Search results";
+
     });
   }
 
@@ -101,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 padding: const EdgeInsets.all(5.0),
                 child: FloatingActionButton.extended(
-                    onPressed: _incrementCounter,
+                    onPressed: _search,
                     label: const Text(
                         "Search",
                         style: TextStyle(fontSize: 20),
@@ -118,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text(
-              '$mainText',
+              mainText,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold
@@ -131,13 +136,43 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _search,
         tooltip: 'Increment',
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  fetchNews() {
-
+  Future<Response> fetchNews() async {
+    return await get(Uri.parse("https://newsapi.org/v2/everything?q=Turkey&apiKey=1d03b991a18c4c62801c03ea541ac065"));
   }
+}
+
+/// This class converts news JSON data to an object.
+/// https://docs.flutter.dev/cookbook/networking/fetch-data
+///
+class News {
+    final String title;
+    final String description;
+    final String url;
+
+    const News({
+      required this.title,
+      required this.description,
+      required this.url,
+    });
+
+    factory News.fromJson(Map<String, dynamic> json) {
+      return switch (json) {
+        {
+          'title': String title,
+          'description': String description,
+          'url': String url,
+        } => News (
+          title: title,
+          description: description,
+          url: url,
+        ),
+        _ => throw const FormatException("Failed to load news."),
+      };
+    }
 }
