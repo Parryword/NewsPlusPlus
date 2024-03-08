@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -47,17 +49,20 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _search() async {
     final response = await get(Uri.parse("https://newsapi.org/v2/everything?q=Turkey&apiKey=1d03b991a18c4c62801c03ea541ac065"));
     if (response.statusCode == 200) {
-      debugPrint(response.body);
+      // debugPrint(jsonEncode(jsonDecode(response.body)["articles"]));
+      List<dynamic> json = jsonDecode(response.body)["articles"];
+
+      mainText = "";
+      for (int i = 0; i < 5; i++) {
+        // debugPrint(j.toString());
+        // mainText += News.fromJson(jsonDecode(j) as Map<String, dynamic>).toString();
+        mainText += News.fromJson(json[i]).toString();
+      }
+      // mainText = News.fromJson(jsonDecode(str) as Map<String, dynamic>).toString();
     }
-    mainText = "Search results";
+    // mainText = "Search results";
 
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-
     });
   }
 
@@ -141,10 +146,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
-  Future<Response> fetchNews() async {
-    return await get(Uri.parse("https://newsapi.org/v2/everything?q=Turkey&apiKey=1d03b991a18c4c62801c03ea541ac065"));
-  }
 }
 
 /// This class converts news JSON data to an object.
@@ -175,4 +176,16 @@ class News {
         _ => throw const FormatException("Failed to load news."),
       };
     }
+
+    @override
+  String toString() {
+    // TODO: implement toString
+      final buffer = StringBuffer();
+      buffer.write("$title\n");
+      buffer.write("$description\n");
+      buffer.write("$url\n\n");
+    return buffer.toString();
+  }
+  
+  
 }
