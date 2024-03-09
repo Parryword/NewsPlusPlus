@@ -153,10 +153,6 @@ class _MyHomePageState extends State<MyHomePage> {
           children: searchResultsWidget
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _search,
-        tooltip: 'Increment',
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
