@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
 
 void main() {
@@ -44,19 +46,43 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String mainText = "Home";
-  String searchText = "Turkey";
+  String searchText = "";
+  var searchResultsWidget = List<Widget>.empty(growable: true);
 
   Future<void> _search() async {
     final response = await get(Uri.parse("https://newsapi.org/v2/everything?q=$searchText&apiKey=1d03b991a18c4c62801c03ea541ac065"));
     if (response.statusCode == 200) {
       List<dynamic> json = jsonDecode(response.body)["articles"];
-
-      mainText = "";
+      searchResultsWidget.clear();
       for (int i = 0; i < 5; i++) {
-        mainText += News.fromJson(json[i]).toString();
+        News news = News.fromJson(json[i]);
+        String title = news.title;
+        String desc = news.description;
+        String url = news.url;
+        searchResultsWidget.add(Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            color: Colors.indigo.shade50,
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold),),
+                ),
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(desc)),
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(url)),
+              ],
+            ),
+          ),
+        ));
       }
     }
+
     setState(() {
     });
   }
@@ -124,18 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              mainText,
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold
-              ),
-            ),
-            Container(
-
-            ),
-          ],
+          children: searchResultsWidget
         ),
       ),
       floatingActionButton: FloatingActionButton(
