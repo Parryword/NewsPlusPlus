@@ -54,32 +54,17 @@ class _MyHomePageState extends State<MyHomePage> {
     if (response.statusCode == 200) {
       List<dynamic> json = jsonDecode(response.body)["articles"];
       searchResultsWidget.clear();
-      for (int i = 0; i < 5; i++) {
-        News news = News.fromJson(json[i]);
+      for (int i = 0; i < 20; i++) {
+        News news;
+        try {
+          news = News.fromJson(json[i]);
+        } on Exception catch (e) {
+          continue;
+        }
         String title = news.title;
-        String desc = news.description;
+        String description = news.description;
         String url = news.url;
-        searchResultsWidget.add(Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            color: Colors.indigo.shade50,
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold),),
-                ),
-                Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(desc)),
-                Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(url)),
-              ],
-            ),
-          ),
-        ));
+        searchResultsWidget.add(NewsWidget(title: title, description: description, url: url,));
       }
     }
 
@@ -145,12 +130,45 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         )
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: ListView.builder(
+        itemCount: searchResultsWidget.length,
+        itemBuilder: (context, index) => searchResultsWidget[index],
+      )
+    );
+  }
+}
+
+class NewsWidget extends StatelessWidget {
+  final String title;
+  final String description;
+  final String url;
+
+  const NewsWidget({super.key,
+    required this.title,
+    required this.description,
+    required this.url,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        padding: const EdgeInsets.all(8.0),
+        color: Colors.indigo.shade50,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: searchResultsWidget
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold),),
+            ),
+            Align(
+                alignment: Alignment.topLeft,
+                child: Text(description)),
+            Align(
+                alignment: Alignment.topLeft,
+                child: Text(url)),
+          ],
         ),
       ),
     );
