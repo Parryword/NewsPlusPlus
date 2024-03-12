@@ -44,17 +44,22 @@ class _MyHomePageState extends State<MyHomePage> {
     if (response.statusCode == 200) {
       List<dynamic> json = jsonDecode(response.body)["articles"];
       searchResultsWidget.clear();
-      for (int i = 0; i < 20; i++) {
+      for (int i = 0; i < 1000; i++) {
         News news;
         try {
-          // TODO: handle crash in case of empty list
           news = News.fromJson(json[i]);
         }
         on RangeError catch (e) {
           searchResultsWidget.add(const WarningWidget(title: "No result", description: "Try searching with another keyword.", severity: Severity.moderate));
           break;
         }
+        on FormatException catch (e) {
+          searchResultsWidget.add(const WarningWidget(title: "Unavailable", description: "Failed to load news.", severity: Severity.moderate));
+          continue;
+        }
         on Exception catch (e) {
+          debugPrint(e.toString());
+          searchResultsWidget.add(const WarningWidget(title: "Unexpected error", description: "An unexpected error occurred.", severity: Severity.critical));
           continue;
         }
         String title = news.title;
