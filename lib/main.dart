@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
+import 'error.dart';
+import 'news.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +12,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,15 +28,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -57,8 +47,14 @@ class _MyHomePageState extends State<MyHomePage> {
       for (int i = 0; i < 20; i++) {
         News news;
         try {
+          // TODO: handle crash in case of empty list
           news = News.fromJson(json[i]);
-        } on Exception catch (e) {
+        }
+        on RangeError catch (e) {
+          searchResultsWidget.add(const WarningWidget(title: "No result", description: "Try searching with another keyword.", severity: Severity.moderate));
+          break;
+        }
+        on Exception catch (e) {
           continue;
         }
         String title = news.title;
@@ -74,34 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.primary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              /*const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "NewsPP",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold
-                  )
-                ),
-              ),*/
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: SizedBox(
@@ -133,85 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView.builder(
         itemCount: searchResultsWidget.length,
         itemBuilder: (context, index) => searchResultsWidget[index],
+        //TODO: ScrollController ekle. InitState'de yarat.
       )
     );
   }
-}
-
-class NewsWidget extends StatelessWidget {
-  final String title;
-  final String description;
-  final String url;
-
-  const NewsWidget({super.key,
-    required this.title,
-    required this.description,
-    required this.url,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        color: Colors.indigo.shade50,
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold),),
-            ),
-            Align(
-                alignment: Alignment.topLeft,
-                child: Text(description)),
-            Align(
-                alignment: Alignment.topLeft,
-                child: Text(url)),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// This class converts news JSON data to an object.
-/// https://docs.flutter.dev/cookbook/networking/fetch-data
-///
-class News {
-    final String title;
-    final String description;
-    final String url;
-
-    const News({
-      required this.title,
-      required this.description,
-      required this.url,
-    });
-
-    factory News.fromJson(Map<String, dynamic> json) {
-      return switch (json) {
-        {
-          'title': String title,
-          'description': String description,
-          'url': String url,
-        } => News (
-          title: title,
-          description: description,
-          url: url,
-        ),
-        _ => throw const FormatException("Failed to load news."),
-      };
-    }
-
-    @override
-  String toString() {
-      final buffer = StringBuffer();
-      buffer.write("$title\n");
-      buffer.write("$description\n");
-      buffer.write("$url\n\n");
-    return buffer.toString();
-  }
-  
-  
 }
