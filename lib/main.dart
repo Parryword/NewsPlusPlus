@@ -38,6 +38,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String searchText = "";
   var searchResultsWidget = List<Widget>.empty(growable: true);
+  ScrollController? _scrollController;
 
   Future<void> _search() async {
     final response = await get(Uri.parse("https://newsapi.org/v2/everything?q=$searchText&apiKey=1d03b991a18c4c62801c03ea541ac065"));
@@ -68,8 +69,18 @@ class _MyHomePageState extends State<MyHomePage> {
         searchResultsWidget.add(NewsWidget(title: title, description: description, url: url,));
       }
     }
-
+    _scrollController?.jumpTo(0);
     setState(() {
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController!.addListener(() {
+      debugPrint(_scrollController!.offset.toString());
     });
   }
 
@@ -114,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCount: searchResultsWidget.length,
         itemBuilder: (context, index) => searchResultsWidget[index],
         //TODO: ScrollController ekle. InitState'de yarat.
+        controller: _scrollController,
       )
     );
   }
