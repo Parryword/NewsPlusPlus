@@ -76,7 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _scrollController = ScrollController();
     _scrollController!.addListener(() {
@@ -124,7 +123,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView.builder(
         itemCount: searchResultsWidget.length,
         itemBuilder: (context, index) => searchResultsWidget[index],
-        //TODO: ScrollController ekle. InitState'de yarat.
         controller: _scrollController,
       )
     );
