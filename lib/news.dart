@@ -26,7 +26,7 @@ class NewsWidget extends StatelessWidget {
             ),
             Align(
                 alignment: Alignment.topLeft,
-                child: Text(description)),
+                child: Text(description.replaceAll("\n", ""))),
             Align(
                 alignment: Alignment.topLeft,
                 child: Text(url)),
