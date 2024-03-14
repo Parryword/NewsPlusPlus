@@ -51,7 +51,12 @@ class _MyHomePageState extends State<MyHomePage> {
           news = News.fromJson(json[i]);
         }
         on RangeError catch (e) {
-          searchResultsWidget.add(const WarningWidget(title: "No result", description: "Try searching with another keyword.", severity: Severity.moderate));
+          if (i == 0) {
+            searchResultsWidget.add(const WarningWidget(title: "No result", description: "Try searching with another keyword.", severity: Severity.moderate));
+          }
+          else {
+            searchResultsWidget.add(const WarningWidget(title: "End of results", description: "Search something else.", severity: Severity.moderate));
+          }
           break;
         }
         on FormatException catch (e) {
@@ -78,9 +83,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _scrollController!.addListener(() {
-      debugPrint(_scrollController!.offset.toString());
-    });
   }
 
   @override
@@ -128,3 +130,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+// TODO: Pubdev url launcher for browser view

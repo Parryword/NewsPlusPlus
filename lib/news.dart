@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'network.dart';
 
 class NewsWidget extends StatelessWidget {
   final String title;
@@ -18,19 +19,27 @@ class NewsWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8.0),
         color: Colors.indigo.shade50,
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold),),
-            ),
-            Align(
+        child: InkWell(
+          onTap: () {
+            BrowserView(url: url).launch();
+            },
+          onLongPress: () {
+            // TODO: Implement menu to save news, add bookmark, send mail to friend feature here
+          },
+          child: Column(
+            children: [
+              Align(
                 alignment: Alignment.topLeft,
-                child: Text(description.replaceAll("\n", ""))),
-            Align(
-                alignment: Alignment.topLeft,
-                child: Text(url)),
-          ],
+                child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold),),
+              ),
+              Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(description.replaceAll("\n", ""))),
+              Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(url)),
+            ],
+          ),
         ),
       ),
     );
