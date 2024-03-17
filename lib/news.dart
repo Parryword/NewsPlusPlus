@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'network.dart';
 
 class NewsWidget extends StatefulWidget {
@@ -37,8 +38,10 @@ class _NewsState extends State<NewsWidget> {
         ),
         items: [
           const PopupMenuItem(child: Text("Bookmark"),),
-          const PopupMenuItem(child: Text("Copy link"),),
-          const PopupMenuItem(child: Text("Open"),),
+          PopupMenuItem(child: const Text("Copy link"), onTap: () async {
+            await Clipboard.setData( ClipboardData(text: widget.url.toString()));
+          },),
+          PopupMenuItem(child: const Text("Open"), onTap: () {BrowserView(url: widget.url).launch();},),
         ]);
   }
 

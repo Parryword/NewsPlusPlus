@@ -36,12 +36,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String searchText = "";
+  String _searchText = "";
   var searchResultsWidget = List<Widget>.empty(growable: true);
   ScrollController? _scrollController;
+  bool _settingPanel = false;
+
+  void _showSettingsPanel() {
+    _settingPanel = true;
+  }
 
   Future<void> _search() async {
-    final response = await get(Uri.parse("https://newsapi.org/v2/everything?q=$searchText&apiKey=1d03b991a18c4c62801c03ea541ac065"));
+    final response = await get(Uri.parse("https://newsapi.org/v2/everything?q=$_searchText&apiKey=1d03b991a18c4c62801c03ea541ac065"));
     if (response.statusCode == 200) {
       List<dynamic> json = jsonDecode(response.body)["articles"];
       searchResultsWidget.clear();
@@ -104,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fillColor: Colors.white,
                     ),
                     onChanged: (value) {
-                      searchText = value;
+                      _searchText = value;
                     },
                   ),
                 ),
@@ -126,7 +131,12 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCount: searchResultsWidget.length,
         itemBuilder: (context, index) => searchResultsWidget[index],
         controller: _scrollController,
-      )
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: _showSettingsPanel,
+          label: const Text("Settings"),
+          icon: const Icon(IconData(0xe57f, fontFamily: 'MaterialIcons')),
+      ),
     );
   }
 }
