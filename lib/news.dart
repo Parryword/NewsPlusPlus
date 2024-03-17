@@ -59,29 +59,25 @@ class _NewsState extends State<NewsWidget> {
         child: Container(
             padding: const EdgeInsets.all(8.0),
             color: Colors.indigo.shade50,
-            child: Stack(
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    BrowserView(url: widget.url).launch();
-                  },
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          widget.title,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(widget.description.replaceAll("\n", ""))),
-                      Align(alignment: Alignment.topLeft, child: Text(widget.url)),
-                    ],
+            child: InkWell(
+              onTap: () {
+                BrowserView(url: widget.url).launch();
+              },
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      widget.title,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-              ],
+                  Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(widget.description.replaceAll("\n", ""))),
+                  Align(alignment: Alignment.topLeft, child: Text(widget.url)),
+                ],
+              ),
             )
         ),
       ),
