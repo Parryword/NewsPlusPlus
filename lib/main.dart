@@ -54,6 +54,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _search() async {
+    if (_searchText.isEmpty) {
+      searchResultsWidget.add(const WarningWidget(title: "Invalid search", description: "Please enter the search text.", severity: Severity.mild));
+      setState(() {
+
+      });
+      return;
+    }
     final response = await get(Uri.parse("https://newsapi.org/v2/everything?q=$_searchText&apiKey=1d03b991a18c4c62801c03ea541ac065"));
     if (response.statusCode == 200) {
       List<dynamic> json = jsonDecode(response.body)["articles"];

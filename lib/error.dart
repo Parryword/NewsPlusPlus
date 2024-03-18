@@ -29,7 +29,10 @@ class WarningWidget extends StatelessWidget {
   }
 
   Color _getColor() {
-    if (severity == Severity.moderate) {
+    if (severity == Severity.mild) {
+      return Colors.indigo.shade100;
+    }
+    else if (severity == Severity.moderate) {
       return Colors.orangeAccent.shade100;
     }
     else {
@@ -39,5 +42,5 @@ class WarningWidget extends StatelessWidget {
 }
 
 enum Severity {
-  moderate, critical
+  mild, moderate, critical
 }
