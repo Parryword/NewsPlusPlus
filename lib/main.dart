@@ -39,10 +39,18 @@ class _MyHomePageState extends State<MyHomePage> {
   String _searchText = "";
   var searchResultsWidget = List<Widget>.empty(growable: true);
   ScrollController? _scrollController;
-  bool _settingPanel = false;
 
-  void _showSettingsPanel() {
-    _settingPanel = true;
+  Future<void> _showMenuPanel() async {
+    await showMenu(context: context, position: RelativeRect.fill,
+    items: [
+      const PopupMenuItem(child: Text("View bookmarks")),
+      const PopupMenuItem(child: Text("Toggle warnings")),
+      const PopupMenuItem(child: Text("Change language")),
+      const PopupMenuItem(child: Text("Export settings")),
+      const PopupMenuItem(child: Text("Import settings")),
+      const PopupMenuItem(child: Text("Log in")),
+      const PopupMenuItem(child: Text("Sign up")),
+    ]);
   }
 
   Future<void> _search() async {
@@ -102,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: SizedBox(
-                  width: 200,
+                  width: 196,
                   child: TextField(
                     decoration: const InputDecoration(
                       filled: true,
@@ -114,14 +122,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              Container(
+              Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: FloatingActionButton.extended(
+                child: FloatingActionButton(
                     onPressed: _search,
-                    label: const Text(
-                        "Search",
-                        style: TextStyle(fontSize: 20),
-                    )),
+                    child: const Icon(IconData(0xe567, fontFamily: 'MaterialIcons')),
+                ),
               )
             ],
           ),
@@ -130,12 +136,35 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView.builder(
         itemCount: searchResultsWidget.length,
         itemBuilder: (context, index) => searchResultsWidget[index],
-        controller: _scrollController,
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-          onPressed: _showSettingsPanel,
+        controller: _scrollController,),
+      /*floatingActionButton: FloatingActionButton.extended(
+          onPressed: _showMenuPanel,
           label: const Text("Settings"),
           icon: const Icon(IconData(0xe57f, fontFamily: 'MaterialIcons')),
+      ),*/
+      drawer: Drawer(
+        child: ListView(
+          children: const [
+            ListTile(
+              title: Text("View bookmarks"),
+            ),
+            ListTile(
+              title: Text("Toogle warnings"),
+            ),
+            ListTile(
+              title: Text("Change language"),
+            ),
+            ListTile(
+              title: Text("Export settings"),
+            ),
+            ListTile(
+              title: Text("Import settings"),
+            ),
+            ListTile(
+              title: Text("Account settings"),
+            ),
+          ]
+        ),
       ),
     );
   }
