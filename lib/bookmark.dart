@@ -49,6 +49,9 @@ class BookmarkState extends State<Bookmark> {
   }
 }
 
+// TODO Consider expanding this class with extra fields.
+// TODO Add dates
+// TODO Save to disk
 class BookmarkElement extends StatelessWidget {
   final String url;
   
