@@ -129,8 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _search() async {
     searchResultsWidget.clear();
-    if (_searchText.isEmpty && Settings().toggleWarnings) {
-      searchResultsWidget.add(const WarningWidget(title: "Invalid search", description: "Please enter the search text.", severity: Severity.mild));
+    if (_searchText.isEmpty) {
+      if (Settings().toggleWarnings) {
+        searchResultsWidget.add(const WarningWidget(title: "Invalid search", description: "Please enter the search text.", severity: Severity.mild));
+      }
       setState(() {
 
       });
