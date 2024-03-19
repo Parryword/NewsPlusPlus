@@ -2,7 +2,7 @@
 class Settings {
   static final Settings _instance = Settings._internal();
   bool isLoggedIn = false;
-  bool toggleWarnings = false;
+  bool toggleWarnings = true;
   Language chosenLanguage = Language.en;
   List<String> bookmarkUrls = List<String>.empty(growable: true);
 
