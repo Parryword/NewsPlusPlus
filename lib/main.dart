@@ -40,19 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
   var searchResultsWidget = List<Widget>.empty(growable: true);
   ScrollController? _scrollController;
 
-  Future<void> _showMenuPanel() async {
-    await showMenu(context: context, position: RelativeRect.fill,
-    items: [
-      const PopupMenuItem(child: Text("View bookmarks")),
-      const PopupMenuItem(child: Text("Toggle warnings")),
-      const PopupMenuItem(child: Text("Change language")),
-      const PopupMenuItem(child: Text("Export settings")),
-      const PopupMenuItem(child: Text("Import settings")),
-      const PopupMenuItem(child: Text("Log in")),
-      const PopupMenuItem(child: Text("Sign up")),
-    ]);
-  }
-
   Future<void> _search() async {
     if (_searchText.isEmpty) {
       searchResultsWidget.add(const WarningWidget(title: "Invalid search", description: "Please enter the search text.", severity: Severity.mild));
