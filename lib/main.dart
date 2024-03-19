@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:se_380/settings.dart';
 import 'error.dart';
 import 'news.dart';
 
@@ -101,26 +102,31 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: SizedBox(
-                  width: 196,
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
+              Expanded(
+                flex: 4,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: SizedBox(
+                    width: 196,
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                      onChanged: (value) {
+                        _searchText = value;
+                      },
                     ),
-                    onChanged: (value) {
-                      _searchText = value;
-                    },
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: FloatingActionButton(
-                    onPressed: _search,
-                    child: const Icon(IconData(0xe567, fontFamily: 'MaterialIcons')),
+              SizedBox(
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: FloatingActionButton(
+                      onPressed: _search,
+                      child: const Icon(IconData(0xe567, fontFamily: 'MaterialIcons')),
+                  ),
                 ),
               )
             ],
@@ -145,7 +151,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SwitchListTile(
                 title: const Text("Toggle warnings"),
-                value: false, onChanged: (bool value) { debugPrint(value as String?); },),
+                value: true, onChanged: (bool value) {
+                  bool state = Settings().toggleWarnings;
+                  if (state) {
+                    Settings().toggleWarnings = false;
+                  }
+                  else {
+                    Settings().toggleWarnings = true;
+                  }
+            },
+            ),
             const ExpansionTile(
                 title: Text("Language"),
                 children: [

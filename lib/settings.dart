@@ -4,6 +4,7 @@ class Settings {
   bool isLoggedIn = false;
   bool toggleWarnings = false;
   Language chosenLanguage = Language.en;
+  List<String> bookmarkUrls = List<String>.empty(growable: true);
 
   factory Settings() {
     return _instance;
