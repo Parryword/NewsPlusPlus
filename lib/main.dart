@@ -88,11 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCount: searchResultsWidget.length,
         itemBuilder: (context, index) => searchResultsWidget[index],
         controller: _scrollController,),
-      /*floatingActionButton: FloatingActionButton.extended(
-          onPressed: _showMenuPanel,
-          label: const Text("Settings"),
-          icon: const Icon(IconData(0xe57f, fontFamily: 'MaterialIcons')),
-      ),*/
       // Navigator.of(context).
       drawer: Drawer(
         child: ListView(
