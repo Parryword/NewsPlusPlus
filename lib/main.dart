@@ -178,5 +178,3 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 }
-
-// TODO: Pubdev url launcher for browser view
