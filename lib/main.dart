@@ -149,25 +149,31 @@ class _MyHomePageState extends State<MyHomePage> {
           label: const Text("Settings"),
           icon: const Icon(IconData(0xe57f, fontFamily: 'MaterialIcons')),
       ),*/
+      // Navigator.of(context).
       drawer: Drawer(
         child: ListView(
-          children: const [
-            ListTile(
-              title: Text("View bookmarks"),
+          children: [
+            const ListTile(
+                title: Text("View bookmarks"),
             ),
-            ListTile(
-              title: Text("Toogle warnings"),
+            SwitchListTile(
+                title: const Text("Toggle warnings"),
+                value: false, onChanged: (bool value) { debugPrint(value as String?); },),
+            const ExpansionTile(
+                title: Text("Language"),
+                children: [
+                  ListTile(title: Text("English")),
+                  ListTile(title: Text("German")),
+                  ListTile(title: Text("Turkish")),
+                ]
             ),
-            ListTile(
-              title: Text("Change language"),
-            ),
-            ListTile(
+            const ListTile(
               title: Text("Export settings"),
             ),
-            ListTile(
+            const ListTile(
               title: Text("Import settings"),
             ),
-            ListTile(
+            const ListTile(
               title: Text("Account settings"),
             ),
           ]
