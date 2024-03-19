@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:se_380/bookmark.dart';
 import 'package:se_380/settings.dart';
 import 'error.dart';
 import 'news.dart';
@@ -92,8 +93,14 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: Drawer(
         child: ListView(
           children: [
-            const ListTile(
-                title: Text("View bookmarks"),
+            ListTile(
+                title: const Text("View bookmarks"),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Bookmark())
+                  );
+                }
             ),
             SwitchListTile(
                 title: const Text("Toggle warnings"),

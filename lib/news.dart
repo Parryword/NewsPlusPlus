@@ -45,7 +45,7 @@ class _NewsState extends State<NewsWidget> {
             child: const Text("Bookmark"),),
           PopupMenuItem(
             onTap: () async {
-              await Clipboard.setData( ClipboardData(text: widget.url.toString()));
+              await Clipboard.setData(ClipboardData(text: widget.url.toString()));
             },
             child: const Text("Copy link"),
           ),

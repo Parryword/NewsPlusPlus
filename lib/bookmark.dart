@@ -14,11 +14,23 @@ class BookmarkState extends State<Bookmark> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return ListView.builder(
-      itemCount: bookmarks.length,
-      itemBuilder: (context, index) => bookmarks[index],
-      controller: _scrollController,);
+    _createBookmarkElements();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: const Text("Bookmarks"),
+      ),
+      body: ListView.builder(
+        itemCount: bookmarks.length,
+        itemBuilder: (context, index) => bookmarks[index],
+        controller: _scrollController,)
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
   }
 
   Future<void> _search() async {
@@ -27,20 +39,29 @@ class BookmarkState extends State<Bookmark> {
     });
   }
 
-  void _createBookmarkWidget() {
+  void _createBookmarkElements() {
     var urls = Settings().bookmarkUrls;
     for (String url in urls) {
       bookmarks.add(
-          Container(
-            color: Theme.of(context).colorScheme.inversePrimary,
-          )
+          BookmarkElement(url: url)
       );
     }
   }
+}
+
+class BookmarkElement extends StatelessWidget {
+  final String url;
+  
+  const BookmarkElement({super.key, required this.url});
 
   @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        color: Theme.of(context).colorScheme.inversePrimary,
+        child: Text(url),
+      ),
+    );
   }
 }
