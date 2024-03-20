@@ -62,6 +62,7 @@ class BookmarkElement extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
+        padding: const EdgeInsets.all(8.0),
         color: Theme.of(context).colorScheme.inversePrimary,
         child: Text(url),
       ),
