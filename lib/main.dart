@@ -2,12 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:se_380/bookmark.dart';
 import 'package:se_380/settings.dart';
 import 'error.dart';
 import 'news.dart';
 
-void main() {
+Future<void> main() async {
+  // Settings load edilmeden çalışmamalı.
+  // await f;
   runApp(const MyApp());
 }
 
@@ -85,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         )
       ),
+      // Material app
       body: ListView.builder(
         itemCount: searchResultsWidget.length,
         itemBuilder: (context, index) => searchResultsWidget[index],
@@ -122,11 +126,24 @@ class _MyHomePageState extends State<MyHomePage> {
             const ListTile(
               title: Text("Export settings"),
             ),
-            const ListTile(
-              title: Text("Import settings"),
+            ListTile(
+              title: const Text("Import settings"),
+              onTap: () {
+                Settings.load();
+                setState(() {
+
+                });
+              },
+            ),
+
+            ListTile(
+              title: const Text("Account settings"),
+              onTap: () {
+                Settings().save();
+              },
             ),
             const ListTile(
-              title: Text("Account settings"),
+                title: Text("Clear data")
             ),
           ]
         ),
