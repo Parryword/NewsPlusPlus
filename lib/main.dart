@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:se_380/bookmark.dart';
 import 'package:se_380/settings.dart';
 import 'error.dart';
+import 'localization.dart';
 import 'news.dart';
 
 Future<void> main() async {
@@ -98,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           children: [
             ListTile(
-                title: const Text("View bookmarks"),
+                title: Text(Localization().viewBookmarks),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -107,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
             ),
             SwitchListTile(
-                title: const Text("Toggle warnings"),
+                title: Text(Localization().toggleWarnings),
                 value: Settings().toggleWarnings, onChanged: (bool value) {
                   setState(() {
                     Settings().toggleWarnings = value;
@@ -115,19 +116,37 @@ class _MyHomePageState extends State<MyHomePage> {
                   debugPrint(Settings().toggleWarnings.toString());
             },
             ),
-            const ExpansionTile(
-                title: Text("Language"),
+            ExpansionTile(
+                title: Text(Localization().language),
                 children: [
-                  ListTile(title: Text("English")),
-                  ListTile(title: Text("German")),
-                  ListTile(title: Text("Turkish")),
+                  ListTile(title: Text(Localization().english), onTap: () {
+                    Settings().chosenLanguage = Language.en;
+                    setState(() {
+
+                    });
+                  }
+                  ),
+                  ListTile(title: Text(Localization().german), onTap: () {
+                    Settings().chosenLanguage = Language.de;
+                    setState(() {
+
+                    });
+                  },
+                  ),
+                  ListTile(title: Text(Localization().turkish), onTap: () {
+                    Settings().chosenLanguage = Language.tr;
+                    setState(() {
+
+                    });
+                  },
+                  ),
                 ]
             ),
-            const ListTile(
-              title: Text("Export settings"),
+            ListTile(
+              title: Text(Localization().exportSettings),
             ),
             ListTile(
-              title: const Text("Import settings"),
+              title: Text(Localization().importSettings),
               onTap: () {
                 Settings.load();
                 setState(() {
@@ -137,13 +156,13 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             ListTile(
-              title: const Text("Account settings"),
+              title: Text(Localization().accountSettings),
               onTap: () {
                 Settings().save();
               },
             ),
-            const ListTile(
-                title: Text("Clear data")
+            ListTile(
+                title: Text(Localization().clearData)
             ),
           ]
         ),

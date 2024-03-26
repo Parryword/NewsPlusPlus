@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:se_380/settings.dart';
 
+import 'localization.dart';
+
 class Bookmark extends StatefulWidget {
   const Bookmark({super.key});
 
@@ -18,7 +20,7 @@ class BookmarkState extends State<Bookmark> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Text("Bookmarks"),
+        title: Text(Localization().bookmarks),
       ),
       body: ListView.builder(
         itemCount: bookmarks.length,

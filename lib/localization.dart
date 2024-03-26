@@ -1,7 +1,163 @@
 import 'dart:collection';
 
+import 'package:se_380/settings.dart';
+
 class Localization {
   static final Localization _instance = Localization._internal();
+  final Settings settings = Settings();
+  final Map<Language, String> _viewBookmarks = {
+    Language.en: "View bookmarks",
+    Language.de: "Leseziechen anzeigen",
+    Language.tr: "Sayfa işaretlerini aç"
+  };
+
+  final Map<Language, String> _toggleWarnings = {
+    Language.en: "Toggle warnings",
+    Language.de: "Warnungen umschalten",
+    Language.tr: "Uyarıları değiştir"
+  };
+
+  final Map<Language, String> _language = {
+    Language.en: "Language",
+    Language.de: "Sprache",
+    Language.tr: "Dil"
+  };
+
+  final Map<Language, String> _english = {
+    Language.en: "English",
+    Language.de: "Englisch",
+    Language.tr: "İngilizce"
+  };
+
+  final Map<Language, String> _german = {
+    Language.en: "German",
+    Language.de: "Deutsch",
+    Language.tr: "Almanca"
+  };
+
+  final Map<Language, String> _turkish = {
+    Language.en: "Turkish",
+    Language.de: "Türkisch",
+    Language.tr: "Türkçe"
+  };
+
+  final Map<Language, String> _exportSettings = {
+    Language.en: "Export settings",
+    Language.de: "Exporteinstellungen",
+    Language.tr: "Ayarları dışa aktar"
+  };
+
+  final Map<Language, String> _importSettings = {
+    Language.en: "Import settings",
+    Language.de: "Importeinstellungen",
+    Language.tr: "Ayarları içe aktar"
+  };
+
+  final Map<Language, String> _accountSettings = {
+    Language.en: "Account settings",
+    Language.de: "Account Einstellungen",
+    Language.tr: "Hesap ayarları"
+  };
+
+  final Map<Language, String> _clearData = {
+    Language.en: "Clear data",
+    Language.de: "Daten löschen",
+    Language.tr: "Verileri temizle"
+  };
+
+  final Map<Language, String> _bookmarks = {
+    Language.en: "Bookmarks",
+    Language.de: "Leseziechen",
+    Language.tr: "Sayfa işaretleri"
+  };
+
+  String get viewBookmarks {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _viewBookmarks[Language.en]!;
+      case Language.de: return _viewBookmarks[Language.de]!;
+      case Language.tr: return _viewBookmarks[Language.tr]!;
+    }
+  }
+
+  String get toggleWarnings {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _toggleWarnings[Language.en]!;
+      case Language.de: return _toggleWarnings[Language.de]!;
+      case Language.tr: return _toggleWarnings[Language.tr]!;
+    }
+  }
+
+  String get language {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _language[Language.en]!;
+      case Language.de: return _language[Language.de]!;
+      case Language.tr: return _language[Language.tr]!;
+    }
+  }
+
+  String get exportSettings {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _exportSettings[Language.en]!;
+      case Language.de: return _exportSettings[Language.de]!;
+      case Language.tr: return _exportSettings[Language.tr]!;
+    }
+  }
+
+  String get importSettings {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _importSettings[Language.en]!;
+      case Language.de: return _importSettings[Language.de]!;
+      case Language.tr: return _importSettings[Language.tr]!;
+    }
+  }
+
+  String get accountSettings {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _accountSettings[Language.en]!;
+      case Language.de: return _accountSettings[Language.de]!;
+      case Language.tr: return _accountSettings[Language.tr]!;
+    }
+  }
+
+  String get clearData {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _clearData[Language.en]!;
+      case Language.de: return _clearData[Language.de]!;
+      case Language.tr: return _clearData[Language.tr]!;
+    }
+  }
+
+  String get english {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _english[Language.en]!;
+      case Language.de: return _english[Language.de]!;
+      case Language.tr: return _english[Language.tr]!;
+    }
+  }
+
+  String get german {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _german[Language.en]!;
+      case Language.de: return _german[Language.de]!;
+      case Language.tr: return _german[Language.tr]!;
+    }
+  }
+
+  String get turkish {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _turkish[Language.en]!;
+      case Language.de: return _turkish[Language.de]!;
+      case Language.tr: return _turkish[Language.tr]!;
+    }
+  }
+
+  String get bookmarks {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _bookmarks[Language.en]!;
+      case Language.de: return _bookmarks[Language.de]!;
+      case Language.tr: return _bookmarks[Language.tr]!;
+    }
+  }
 
   factory Localization() {
     return _instance;
