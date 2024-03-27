@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:se_380/settings.dart';
+import 'localization.dart';
 import 'network.dart';
 
 class NewsWidget extends StatefulWidget {
@@ -42,18 +43,18 @@ class _NewsState extends State<NewsWidget> {
             onTap: ()  {
               Settings().bookmarkUrls.add(widget.url);
             },
-            child: const Text("Bookmark"),),
+            child: Text(Localization().bookmark),),
           PopupMenuItem(
             onTap: () async {
               await Clipboard.setData(ClipboardData(text: widget.url.toString()));
             },
-            child: const Text("Copy link"),
+            child: Text(Localization().copyLink),
           ),
           PopupMenuItem(
             onTap: () {
               BrowserView(url: widget.url).launch();
               },
-            child: const Text("Open"),
+            child: Text(Localization().open),
           ),
         ]);
   }

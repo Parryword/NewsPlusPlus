@@ -143,7 +143,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ]
             ),
             ListTile(
-              title: Text(Localization().exportSettings),
+              title: Text(Localization().exportSettings), onTap: () {
+              Settings().save();
+              setState(() {
+
+              });
+
+            },
             ),
             ListTile(
               title: Text(Localization().importSettings),
@@ -157,12 +163,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
             ListTile(
               title: Text(Localization().accountSettings),
-              onTap: () {
-                Settings().save();
-              },
             ),
             ListTile(
-                title: Text(Localization().clearData)
+                title: Text(Localization().clearData), onTap: () {
+                  debugPrint(Localization().settings.toString());
+                  debugPrint(Settings().toString());
+                  setState(() {
+
+                  });
+            },
             ),
           ]
         ),

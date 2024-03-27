@@ -8,21 +8,14 @@ import 'package:path_provider/path_provider.dart';
 /// https://stackoverflow.com/questions/12649573/how-do-you-build-a-singleton-in-dart
 class Settings {
   static Settings? _instance;
-  static final SettingsStorage storage = SettingsStorage();
+  static final SettingsStorage _storage = SettingsStorage();
   bool isLoggedIn = false;
   bool toggleWarnings = true;
   Language chosenLanguage = Language.en;
   List<String> bookmarkUrls = List<String>.empty(growable: true);
 
   factory Settings() {
-    if (_instance == null) {
-      try {
-        _instance = Settings.fromJson(jsonDecode(storage.read().toString()) as Map<String, dynamic>);
-      } on Exception catch (_, e) {
-        debugPrint("Failed to load settings from JSON");
-        _instance = Settings._internal();
-      }
-    }
+    _instance ??= Settings._internal();
     return _instance!;
   }
 
@@ -43,15 +36,27 @@ class Settings {
 
   void save() {
     debugPrint("Saving...");
-    storage.write(jsonEncode(toJson()));
+    _storage.write(jsonEncode(toJson()));
   }
 
   static void load() {
-    Future<String> json = storage.read();
+    debugPrint("Loading...");
+    Future<String> json = _storage.read();
     json.then((value) => {
-      debugPrint(value),
-      _instance = Settings.fromJson(jsonDecode(value))
+      () {
+        var temp = Settings.fromJson(jsonDecode(value));
+        _instance!.chosenLanguage = temp.chosenLanguage;
+        _instance!.isLoggedIn = temp.isLoggedIn;
+        _instance!.bookmarkUrls = temp.bookmarkUrls;
+        _instance!.toggleWarnings = temp.toggleWarnings;
+        debugPrint(_instance.toString());
+      }.call()
     });
+  }
+
+  @override
+  String toString() {
+    return 'Settings{isLoggedIn: $isLoggedIn, toggleWarnings: $toggleWarnings, chosenLanguage: $chosenLanguage, bookmarkUrls: $bookmarkUrls}';
   }
 }
 

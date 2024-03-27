@@ -5,6 +5,7 @@ import 'package:se_380/settings.dart';
 class Localization {
   static final Localization _instance = Localization._internal();
   final Settings settings = Settings();
+
   final Map<Language, String> _viewBookmarks = {
     Language.en: "View bookmarks",
     Language.de: "Leseziechen anzeigen",
@@ -69,6 +70,24 @@ class Localization {
     Language.en: "Bookmarks",
     Language.de: "Leseziechen",
     Language.tr: "Sayfa işaretleri"
+  };
+
+  final Map<Language, String> _bookmark = {
+    Language.en: "Bookmark",
+    Language.de: "Lesezeichen",
+    Language.tr: "Yer işareti"
+  };
+
+  final Map<Language, String> _copyLink = {
+    Language.en: "Copy link",
+    Language.de: "Link kopieren",
+    Language.tr: "Linki kopyala"
+  };
+
+  final Map<Language, String> _open = {
+    Language.en: "Open",
+    Language.de: "Öffnen",
+    Language.tr: "Aç"
   };
 
   String get viewBookmarks {
@@ -156,6 +175,30 @@ class Localization {
       case Language.en: return _bookmarks[Language.en]!;
       case Language.de: return _bookmarks[Language.de]!;
       case Language.tr: return _bookmarks[Language.tr]!;
+    }
+  }
+
+  String get bookmark {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _bookmark[Language.en]!;
+      case Language.de: return _bookmark[Language.de]!;
+      case Language.tr: return _bookmark[Language.tr]!;
+    }
+  }
+
+  String get copyLink {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _copyLink[Language.en]!;
+      case Language.de: return _copyLink[Language.de]!;
+      case Language.tr: return _copyLink[Language.tr]!;
+    }
+  }
+
+  String get open {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _open[Language.en]!;
+      case Language.de: return _open[Language.de]!;
+      case Language.tr: return _open[Language.tr]!;
     }
   }
 
