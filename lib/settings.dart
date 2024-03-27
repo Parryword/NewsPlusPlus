@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 
 /// https://stackoverflow.com/questions/12649573/how-do-you-build-a-singleton-in-dart
 class Settings {
-  static Settings? _instance;
+  static final Settings _instance = Settings._internal();
   static final SettingsStorage _storage = SettingsStorage();
   bool isLoggedIn = false;
   bool toggleWarnings = true;
@@ -15,7 +15,6 @@ class Settings {
   List<String> bookmarkUrls = List<String>.empty(growable: true);
 
   factory Settings() {
-    _instance ??= Settings._internal();
     return _instance!;
   }
 
@@ -52,6 +51,10 @@ class Settings {
         debugPrint(_instance.toString());
       }.call()
     });
+  }
+
+  void reset() {
+
   }
 
   @override

@@ -155,6 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text(Localization().importSettings),
               onTap: () async {
                 await Settings.load();
+                // Find a better solution
                 await Future.delayed(const Duration(milliseconds: 50));
                 setState(() {
 
@@ -167,8 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
                 title: Text(Localization().clearData), onTap: () {
-                  debugPrint(Localization().settings.toString());
-                  debugPrint(Settings().toString());
+                  Settings().reset();
                   setState(() {
 
                   });
