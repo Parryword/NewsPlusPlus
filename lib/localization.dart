@@ -56,7 +56,7 @@ class Localization {
 
   final Map<Language, String> _accountSettings = {
     Language.en: "Account settings",
-    Language.de: "Account Einstellungen",
+    Language.de: "Kontoeinstellungen",
     Language.tr: "Hesap ayarları"
   };
 
@@ -74,8 +74,8 @@ class Localization {
 
   final Map<Language, String> _bookmark = {
     Language.en: "Bookmark",
-    Language.de: "Lesezeichen",
-    Language.tr: "Sayfa işareti"
+    Language.de: "Lesezeichen setzen",
+    Language.tr: "Sayfayı işaretle"
   };
 
   final Map<Language, String> _copyLink = {
