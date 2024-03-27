@@ -167,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text(Localization().accountSettings),
             ),
             ListTile(
-                title: Text(Localization().clearData), onTap: () {
+                title: Text(Localization().clearData), onLongPress: () {
                   Settings.reset();
                   setState(() {
 

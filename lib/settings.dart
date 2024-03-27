@@ -23,13 +23,13 @@ class Settings {
   Settings.fromJson(Map<String, dynamic> json)
     : isLoggedIn = json['isLoggedIn'] as bool,
       toggleWarnings = json['toggleWarnings'] as bool,
-      chosenLanguage = Language.values.elementAt(json['chosenLanguage']),
+      chosenLanguage = Language.values.byName(json['chosenLanguage']),
       bookmarkUrls = (json['bookmarkUrls'] as List).cast<String>();
 
   Map<String, dynamic> toJson() => {
     'isLoggedIn': isLoggedIn,
     'toggleWarnings': toggleWarnings,
-    'chosenLanguage': chosenLanguage.index,
+    'chosenLanguage': chosenLanguage.name,
     'bookmarkUrls': bookmarkUrls
   };
 

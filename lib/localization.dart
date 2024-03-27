@@ -75,7 +75,7 @@ class Localization {
   final Map<Language, String> _bookmark = {
     Language.en: "Bookmark",
     Language.de: "Lesezeichen",
-    Language.tr: "Yer işareti"
+    Language.tr: "Sayfa işareti"
   };
 
   final Map<Language, String> _copyLink = {
