@@ -43,18 +43,22 @@ class Settings {
     Future<String> json = _storage.read();
     json.then((value) => {
       () {
-        var temp = Settings.fromJson(jsonDecode(value));
-        _instance!.chosenLanguage = temp.chosenLanguage;
-        _instance!.isLoggedIn = temp.isLoggedIn;
-        _instance!.bookmarkUrls = temp.bookmarkUrls;
-        _instance!.toggleWarnings = temp.toggleWarnings;
+        _changeSettings(Settings.fromJson(jsonDecode(value)));
         debugPrint(_instance.toString());
       }.call()
     });
   }
 
-  void reset() {
+  static void reset() {
+    _changeSettings(Settings._internal());
+    // _instance.save();
+  }
 
+  static void _changeSettings(Settings newSettings) {
+    _instance.toggleWarnings = newSettings.toggleWarnings;
+    _instance.bookmarkUrls = newSettings.bookmarkUrls;
+    _instance.isLoggedIn = newSettings.isLoggedIn;
+    _instance.chosenLanguage = newSettings.chosenLanguage;
   }
 
   @override

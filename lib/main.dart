@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
                 title: Text(Localization().clearData), onTap: () {
-                  Settings().reset();
+                  Settings.reset();
                   setState(() {
 
                   });
