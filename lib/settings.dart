@@ -39,7 +39,7 @@ class Settings {
     _storage.write(jsonEncode(toJson()));
   }
 
-  static void load() {
+  static Future<void> load() async {
     debugPrint("Loading...");
     Future<String> json = _storage.read();
     json.then((value) => {
