@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:se_380/settings.dart';
 import 'localization.dart';
-import 'network.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsWidget extends StatefulWidget {
   final String title;
@@ -137,5 +137,17 @@ class News {
     buffer.write("$description\n");
     buffer.write("$url\n\n");
     return buffer.toString();
+  }
+}
+
+class BrowserView {
+  final String url;
+
+  const BrowserView({required this.url});
+
+  Future<void> launch() async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception("Could not launch $url");
+    }
   }
 }
