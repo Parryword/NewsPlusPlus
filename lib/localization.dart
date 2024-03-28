@@ -6,6 +6,12 @@ class Localization {
   static final Localization _instance = Localization._internal();
   final Settings settings = Settings();
 
+  factory Localization() {
+    return _instance;
+  }
+
+  Localization._internal();
+
   final Map<Language, String> _viewBookmarks = {
     Language.en: "View bookmarks",
     Language.de: "Leseziechen anzeigen",
@@ -207,12 +213,6 @@ class Localization {
       case Language.tr: return _open[Language.tr]!;
     }
   }
-
-  factory Localization() {
-    return _instance;
-  }
-
-  Localization._internal();
 
   String get factorySettings {
     switch(settings.chosenLanguage) {
