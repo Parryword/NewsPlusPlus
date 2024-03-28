@@ -167,12 +167,21 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text(Localization().accountSettings),
             ),
             ListTile(
-                title: Text(Localization().clearData), onLongPress: () {
+                title: Text(Localization().factorySettings), onTap: () {
                   Settings.reset();
                   setState(() {
 
                   });
             },
+            ),
+            ListTile(
+              title: Text(Localization().clearData), onLongPress: () {
+              Settings.wipe();
+              setState(() {
+
+              });
+            },
+
             ),
           ]
         ),

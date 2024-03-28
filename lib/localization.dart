@@ -9,13 +9,13 @@ class Localization {
   final Map<Language, String> _viewBookmarks = {
     Language.en: "View bookmarks",
     Language.de: "Leseziechen anzeigen",
-    Language.tr: "Sayfa işaretlerini aç"
+    Language.tr: "Sayfa işaretlerini göster"
   };
 
   final Map<Language, String> _toggleWarnings = {
     Language.en: "Toggle warnings",
     Language.de: "Warnungen umschalten",
-    Language.tr: "Uyarıları değiştir"
+    Language.tr: "Uyarıları aç/kapa"
   };
 
   final Map<Language, String> _language = {
@@ -88,6 +88,12 @@ class Localization {
     Language.en: "Open",
     Language.de: "Öffnen",
     Language.tr: "Aç"
+  };
+
+  final Map<Language, String> _factorySettings = {
+    Language.en: "Factory settings",
+    Language.de: "Werkseinstellung",
+    Language.tr: "Fabrika ayarları"
   };
 
   String get viewBookmarks {
@@ -207,4 +213,12 @@ class Localization {
   }
 
   Localization._internal();
+
+  String get factorySettings {
+    switch(settings.chosenLanguage) {
+      case Language.en: return _factorySettings[Language.en]!;
+      case Language.de: return _factorySettings[Language.de]!;
+      case Language.tr: return _factorySettings[Language.tr]!;
+    }
+  }
 }

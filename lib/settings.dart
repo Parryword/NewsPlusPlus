@@ -51,7 +51,11 @@ class Settings {
 
   static void reset() {
     _changeSettings(Settings._internal());
-    // _instance.save();
+  }
+
+  static void wipe() {
+    _changeSettings(Settings._internal());
+    _instance.save();
   }
 
   static void _changeSettings(Settings newSettings) {
